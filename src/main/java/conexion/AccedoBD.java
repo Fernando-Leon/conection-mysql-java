@@ -11,8 +11,8 @@ package conexion;
 public class AccedoBD {
     
     private String url = "jdbc:mysql://localhost:3306/bdempleados";
-    private String user = "root"; // Tu usuario
-    private String pass = "inli"; //Tu contraseña de MYSQL
+    private String user = ""; // Tu usuario
+    private String pass = ""; //Tu contraseña de MYSQL
 
     public String getUrl() {
         return url;
