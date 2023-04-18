@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controladora;
 
 import conexion.AccedoBD;
@@ -15,7 +11,7 @@ import modelo.DtoEmpleado;
 
 /**
  *
- * @author ferna
+ * @author fernando leon
  */
 public class DaoEmpleado {
     
@@ -89,12 +85,14 @@ public class DaoEmpleado {
 
             objEditar.setDate(4, (Date) dtoInsertar.getFechaContratacion());
             objEditar.setDouble(5, dtoInsertar.getSalarioDiario());
+            objEditar.setInt(6, dtoInsertar.getIdEmpeado());
             objEditar.executeUpdate();
+            System.out.println("Empleado actualizado correctamente");
         }catch (SQLException ex){
             System.out.println("Error al editar al empleado");
         }finally {
             try {
-                objEliminar.close();
+                objEditar.close();
             } catch (SQLException ex){
                 System.out.println(ex.getMessage());
             }
@@ -117,14 +115,14 @@ public class DaoEmpleado {
         return dtoBuscar;
     }
 
-    public DtoEmpleado buscarEmpleadoApellido(String apellido_paterno) throws SQLException {
+    public DtoEmpleado buscarEmpleadoApellido(String apellido_pa) throws SQLException {
         objBuscar = con.prepareStatement("SELECT * FROM tb_empleados WHERE apellido_paterno = ?");
-        objBuscar.setString(1, apellido_paterno);
+        objBuscar.setString(1, apellido_pa);
         ResultSet rs = objBuscar.executeQuery();
 
         while(rs.next()) {
             dtoBuscar.setIdEmpeado(rs.getInt("id_empleado"));
-            dtoBuscar.setApellidoPaterno(rs.getString("apelido_paterno"));
+            dtoBuscar.setApellidoPaterno(rs.getString("apellido_paterno"));
             dtoBuscar.setApellidoMaterno(rs.getString("apellido_materno"));
             dtoBuscar.setNombre(rs.getString("nombre"));
             dtoBuscar.setFechaContratacion(rs.getDate("fecha_contratacion"));
